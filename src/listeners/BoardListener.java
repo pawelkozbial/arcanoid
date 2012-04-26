@@ -14,7 +14,7 @@ public class BoardListener extends KeyAdapter implements ActionListener {
 
 	public BoardListener(Board b, Player p) {
 		this.b = b;
-		this.p=p;
+		this.p = p;
 		time = new Timer(5, this);
 		time.start();
 	}
@@ -24,7 +24,7 @@ public class BoardListener extends KeyAdapter implements ActionListener {
 		p.move();
 		b.repaint();
 	}
-	
+
 	@Override
 	public void keyPressed(KeyEvent e) {
 		p.keyPressed(e);

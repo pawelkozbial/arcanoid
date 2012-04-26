@@ -1,5 +1,6 @@
 package graphics;
 
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
@@ -18,27 +19,28 @@ import javax.swing.Timer;
 public class Board extends JPanel implements ActionListener {
 
 	public Board() {
+
 		player = new Player();
 		block = new Block();
-		ball = new Ball(200, 200);
+		ball = new Ball(player.getX(), player.getY() - 20);
 		setFocusable(true);
 		addKeyListener(new AL());
-		// addKeyListener(new BoardListener(this, p));
+		// addKeyListener(new BoardListener(this, player));
 		ImageIcon ic = new ImageIcon("images/background.jpg");
 		imgBackground = ic.getImage();
-		ic = new ImageIcon("images/block-1.png");
-		img = ic.getImage();
+		// ic = new ImageIcon("images/block-1.png");
+		// img = ic.getImage();
 		time = new Timer(5, this);
-		time.start();
+		// time.start();
 		blocks = new ArrayList<Block>();
-		for (int i = 0; i < 8; i++) {
+		for (int i = 0; i < 6; i++) {
 			for (int j = 0; j < 3; j++) {
 
 				blocks.add(new Block());
 				blocks.get(ktory).setX(
-						30 + (block.getImgBlock().getWidth(null) + 28) * i);
+						90 + (block.getImgBlock().getWidth(null) + 28) * i);
 				blocks.get(ktory).setY(
-						30 + (block.getImgBlock().getHeight(null) + 20) * j);
+						50 + (block.getImgBlock().getHeight(null) + 20) * j);
 
 				System.out.println("Block: " + (ktory) + " "
 						+ blocks.get(ktory).getX() + " "
@@ -54,6 +56,7 @@ public class Board extends JPanel implements ActionListener {
 		 * for (int i = 0; i < balls.size(); i++) { ball = balls.get(i); if
 		 * (ball.getVisible() == true) { ball.move(); } else balls.remove(i); }
 		 */
+
 		player.move();
 		ball.move(this);
 		collision();
@@ -61,10 +64,24 @@ public class Board extends JPanel implements ActionListener {
 		repaint();
 	}
 
-	public void collision() {
+	private void rysuj(Graphics2D g2d) {
+		ktory = 0;
+		for (int i = 0; i < 6; i++) {
+			for (int j = 0; j < 3; j++) {
+				Block tmpBlock = blocks.get(ktory);
+				if (tmpBlock.isVisible() == true)
+					g2d.drawImage(tmpBlock.getImgBlock(), tmpBlock.getX(),
+							tmpBlock.getY(), null);
+				ktory++;
+
+			}
+		}
+	}
+
+	private void collision() {
+
 		Rectangle rectPlayer = player.getBounds();
 		Rectangle rectBall = ball.getBounds();
-		// Rectangle rectBlock = block.getBounds();
 
 		// Player bounds
 
@@ -79,14 +96,12 @@ public class Board extends JPanel implements ActionListener {
 				&& (rectPlayer.getMaxX() - (ball.getImgBall().getWidth(null) + ball
 						.getDx())) == rectBall.getX()) {
 			ball.setDx(-ball.getDx());
-			block.setVisible(true);
 			/* System.out.println("MaxX player " + rectPlayer.getMaxX()); */
 		}
 		if (rectBall.intersects(rectPlayer)
 				&& (rectPlayer.getY() - (ball.getImgBall().getHeight(null) - ball
 						.getDy())) == rectBall.getY()) {
 			ball.setDy(-ball.getDy());
-			block.setVisible(true);
 			/*
 			 * System.out.println("MIN: " + rectBall.getMinY() + " MAX " +
 			 * rectBall.getMaxY());
@@ -135,11 +150,23 @@ public class Board extends JPanel implements ActionListener {
 					System.out.println("ILE: " + ile);
 					System.out.println("Block " + block.getX());
 				}
+				if (ile == 4) {
+					// time.stop();
+					// time.removeActionListener(this);
+					// System.out.println(time.isRunning());
+					poziom = 1;
+					System.out.println(blocks.size());
+				}
+				if (ile == 10) {
+					poziom = 2;
+				}
 			} else {
-				blocks.remove(i);
-				if(blocks.size()==0){
-				System.out.println("KONIEC");
-				System.exit(0);
+				// blocks.remove(i);
+				if (ile == blocks.size() - 14 && poziom == 1) {
+					blocks.get(i).setVisible(true);
+				}
+				if (ile == blocks.size() - 8 && poziom == 2) {
+					blocks.get(i).setVisible(true);
 				}
 			}
 		}
@@ -150,9 +177,7 @@ public class Board extends JPanel implements ActionListener {
 		Graphics2D g2d = (Graphics2D) g;
 
 		g2d.drawImage(imgBackground, 0, 0, null);
-		// if (block.isVisible() == true) {
-		// g2d.drawImage(block.getImgBlock(), block.getX(), block.getY(), null);
-		// }
+
 		g2d.drawImage(player.getImgPlayer(), player.getX(), player.getY(), null);
 
 		/*
@@ -162,16 +187,25 @@ public class Board extends JPanel implements ActionListener {
 		 * (block.getImgBlock().getHeight(null) + 20) * j, null); } }
 		 */
 
-		// for (int i = 0; i < 8; i++) {
+		// ktory = 0;
+		// for (int i = 0; i < 6; i++) {
 		// for (int j = 0; j < 3; j++) {
-		// if (blocks.get(i * j).isVisible() == true)
-		// g2d.drawImage(block.getImgBlock(),
-		// blocks.get(i * j).getX(), blocks.get(i * j).getY(),
-		// null);
+		// Block tmpBlock = blocks.get(ktory);
+		// if (tmpBlock.isVisible() == true)
+		// g2d.drawImage(tmpBlock.getImgBlock(), tmpBlock.getX(),
+		// tmpBlock.getY(), null);
+		// ktory++;
+		//
 		// }
 		// }
+		rysuj(g2d);
 
 		g2d.drawImage(ball.getImgBall(), ball.getX(), ball.getY(), null);
+
+		g2d.setFont(new Font("Serif", Font.HANGING_BASELINE, 20));
+		g2d.drawString("Punktacja: " + ile, 670, 20);
+
+		g2d.drawString("Poziom: " + poziom, 20, 20);
 
 		/*
 		 * List<Ball> balls = Player.getBalls(); for (int i = 0; i <
@@ -184,23 +218,31 @@ public class Board extends JPanel implements ActionListener {
 		@Override
 		public void keyPressed(KeyEvent e) {
 			player.keyPressed(e);
-			super.keyPressed(e);
+			int key = e.getKeyCode();
+			if (key == KeyEvent.VK_SPACE) {
+				time.start();
+			}
+			if (key == KeyEvent.VK_PAGE_UP) {
+				time.stop();
+			}
+			// super.keyPressed(e);
 		}
 
 		@Override
 		public void keyReleased(KeyEvent e) {
 			player.keyReleased(e);
-			super.keyReleased(e);
+			// super.keyReleased(e);
 		}
 	}
 
+	Image img;
 	private Player player;
 	private Block block;
-	private Image imgBackground, img;
+	private Image imgBackground;
 	private Timer time;
 	private List<Block> blocks;
 	private Ball ball;
 	private static int ile = 0;
-	private int ktory = 0;
+	private int ktory = 0, poziom = 0;
 	private static final long serialVersionUID = 1L;
 }

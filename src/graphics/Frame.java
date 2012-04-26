@@ -13,7 +13,7 @@ public class Frame extends JFrame {
 		setLocationRelativeTo(null);
 	}
 
-	private static final int DEFAULT_WIDTH = 912;
+	private static final int DEFAULT_WIDTH = 812;
 	private static final int DEFAULT_HEIGHT = 630;
 	
 	private static final long serialVersionUID = 1L;

@@ -43,43 +43,6 @@ public class Ball {
 			dy = -dy;
 			// System.out.println("MaxY: " + board.getBounds().getMaxY());
 		}
-
-		/*
-		 * Rectangle rectPlayer = player.getBounds(); Rectangle rectBall =
-		 * this.getBounds(); Rectangle rectBlock = block.getBounds();
-		 * 
-		 * // Player bounds
-		 * 
-		 * if (rectBall.intersects(rectPlayer) && (rectPlayer.getMinX() -
-		 * (imgBall.getWidth(null) - dx)) == rectBall .getX()) { dx = -dx;
-		 * block.setVisible(true); // System.out.println("MinX player " +
-		 * rectPlayer.getMinX()); } if (rectBall.intersects(rectPlayer) &&
-		 * (rectPlayer.getMaxX() - (imgBall.getWidth(null) + dx)) == rectBall
-		 * .getX()) { dx = -dx; block.setVisible(true);
-		 * System.out.println("MaxX player " + rectPlayer.getMaxX()); } if
-		 * (rectBall.intersects(rectPlayer) && (rectPlayer.getY() -
-		 * (imgBall.getHeight(null) - dy)) == rectBall .getY()) { dy = -dy;
-		 * block.setVisible(true); System.out.println("MIN: " +
-		 * rectBall.getMinY() + " MAX " + rectBall.getMaxY()); }
-		 * 
-		 * // Block bounds if (block.isVisible() == true) {
-		 * 
-		 * if (rectBall.intersects(rectBlock) && (rectBlock.getMinX() -
-		 * (imgBall.getWidth(null) - dx)) == rectBall .getX()) { dx = -dx;
-		 * block.setVisible(false); System.out.println("MinX " +
-		 * rectBall.getMinX()); } if (rectBall.intersects(rectBlock) &&
-		 * (rectBlock.getMaxX() - (imgBall.getWidth(null) + dx)) == rectBall
-		 * .getX()) { dx = -dx; block.setVisible(false);
-		 * System.out.println("MaxX " + rectBall.getMinX()); } if
-		 * (rectBall.intersects(rectBlock) && (rectBlock.getMinY() -
-		 * (imgBall.getHeight(null) - dy)) == rectBall .getY()) { dy = -dy;
-		 * block.setVisible(false); // System.exit(0);
-		 * System.out.println("MinY " + rectBall.getY()); } if
-		 * (rectBall.intersects(rectBlock) && (rectBlock.getMaxY() -
-		 * (imgBall.getHeight(null) + dy)) == rectBall .getY()) {
-		 * System.out.println("MaxY " + rectBall.getY()); dy = -dy;
-		 * block.setVisible(false); } }
-		 */
 	}
 
 	public Rectangle getBounds() {

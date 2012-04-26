@@ -11,7 +11,7 @@ import javax.swing.ImageIcon;
 public class Player {
 
 	public Player() {
-		ImageIcon ic = new ImageIcon("images/base.png");
+		ImageIcon ic = new ImageIcon("images/player.png");
 		imgPlayer = ic.getImage();
 		x = 400;
 		y = 560;
@@ -21,7 +21,7 @@ public class Player {
 	public void fire() {
 		Ball b = new Ball(200, 200);
 		balls.add(b);
-		//System.out.println("Utworzono");
+		// System.out.println("Utworzono");
 	}
 
 	public void keyPressed(KeyEvent e) {
@@ -33,13 +33,6 @@ public class Player {
 		if (key == KeyEvent.VK_RIGHT) {
 			dx = 5;
 		}
-		if (key == KeyEvent.VK_UP) {
-			dy = -5;
-		}
-		if (key == KeyEvent.VK_DOWN) {
-			dy = 5;
-		}
-		//System.out.println("Player: " + x);
 	}
 
 	public void keyReleased(KeyEvent e) {
@@ -50,12 +43,6 @@ public class Player {
 		}
 		if (key == KeyEvent.VK_RIGHT) {
 			dx = 0;
-		}
-		if (key == KeyEvent.VK_UP) {
-			dy = 0;
-		}
-		if (key == KeyEvent.VK_DOWN) {
-			dy = 0;
 		}
 	}
 
@@ -75,7 +62,7 @@ public class Player {
 	public Image getImgPlayer() {
 		return imgPlayer;
 	}
-	
+
 	public static List<Ball> getBalls() {
 		return balls;
 	}
