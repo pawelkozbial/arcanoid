@@ -8,20 +8,52 @@ import javax.swing.ImageIcon;
 public class Block {
 
 	public Block() {
-		ImageIcon ic = new ImageIcon("images/block-1.png");
-		imgBlock = ic.getImage();
+		ImageIcon ic1 = new ImageIcon("images/block-1.png");
+		imgBlock1 = ic1.getImage();
+		ImageIcon ic2 = new ImageIcon("images/block-2.png");
+		imgBlock2 = ic2.getImage();
+		ImageIcon ic3 = new ImageIcon("images/block-3.png");
+		imgBlock3 = ic3.getImage();
 		x = 0;
 		y = 0;
 		visible = true;
 	}
 
-	public Rectangle getBounds() {
-		return new Rectangle(x, y, imgBlock.getWidth(null),
-				imgBlock.getHeight(null));
+	public Block(int x, int y) {
+		ImageIcon ic1 = new ImageIcon("images/block-1.png");
+		imgBlock1 = ic1.getImage();
+		ImageIcon ic2 = new ImageIcon("images/block-2.png");
+		imgBlock2 = ic2.getImage();
+		ImageIcon ic3 = new ImageIcon("images/block-3.png");
+		imgBlock3 = ic3.getImage();
+		this.x = x;
+		this.y = y;
+		visible = true;
 	}
 
-	public Image getImgBlock() {
-		return imgBlock;
+	public Rectangle getBounds() {
+		return new Rectangle(x, y, imgBlock1.getWidth(null),
+				imgBlock1.getHeight(null));
+	}
+
+	public Image getImgBlock1() {
+		return imgBlock1;
+	}
+
+	public Image getImgBlock2() {
+		return imgBlock2;
+	}
+
+	public Image getImgBlock3() {
+		return imgBlock3;
+	}
+
+	public int getWidth() {
+		return imgBlock1.getWidth(null);
+	}
+
+	public int getHeight() {
+		return imgBlock1.getHeight(null);
 	}
 
 	public void setX(int x) {
@@ -49,7 +81,7 @@ public class Block {
 	}
 
 	private int x, y;
-	private Image imgBlock;
+	private final Image imgBlock1, imgBlock2, imgBlock3;
 	private boolean visible;
 
 }

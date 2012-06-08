@@ -19,11 +19,11 @@ public class Arcanoid {
 			public void run() {
 				// NotHelloWorldFrame frame = new NotHelloWorldFrame();
 				Frame frame = new Frame();
+				frame.initLevelOne();
 				frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 				frame.setVisible(true);
 			}
 		});
 		System.out.println(Arcanoid.class.getResource(""));
 	}
-
 }

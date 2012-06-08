@@ -7,52 +7,51 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
+
+import listeners.BoardListener;
 
 public class Player {
 
 	public Player() {
 		ImageIcon ic = new ImageIcon("images/player.png");
 		imgPlayer = ic.getImage();
-		x = 400;
-		y = 560;
+		x = 350;
+		y = 530;
 		balls = new ArrayList<Ball>();
 	}
 
 	public void fire() {
-		Ball b = new Ball(200, 200);
-		balls.add(b);
-		// System.out.println("Utworzono");
+		ball = new Ball(x + 80, y - 20);
+		balls.add(ball);
+		// System.out.println("Utworzono: " + balls.size());
+		System.out.println("Size: " + balls.size());
 	}
 
 	public void keyPressed(KeyEvent e) {
 		int key = e.getKeyCode();
 
-		if (key == KeyEvent.VK_LEFT) {
-			dx = -5;
+		if (key == KeyEvent.VK_SPACE) {
+			if (life > 0) {
+				if (balls.size() != 1) {
+					life--;
+					fire();
+				}
+			}
+			if (balls.size() == 0 && ball.isVisible() == false) {
+				BoardListener.getTimer().stop();
+				JOptionPane.showMessageDialog(null, "KONIEC GRY");
+				System.exit(0);
+			}
 		}
-		if (key == KeyEvent.VK_RIGHT) {
-			dx = 5;
-		}
-	}
-
-	public void keyReleased(KeyEvent e) {
-		int key = e.getKeyCode();
-
-		if (key == KeyEvent.VK_LEFT) {
-			dx = 0;
-		}
-		if (key == KeyEvent.VK_RIGHT) {
-			dx = 0;
-		}
-	}
-
-	public void move() {
-		x += dx;
-		y += dy;
 	}
 
 	public int getX() {
 		return x;
+	}
+
+	public void setX(int x) {
+		this.x = x;
 	}
 
 	public int getY() {
@@ -72,7 +71,14 @@ public class Player {
 				imgPlayer.getHeight(null));
 	}
 
-	private int x, dx, y, dy;
+	public int getLife() {
+		return life;
+	}
+
+	private int x, y;
+	// private int dx, dy;
+	private int life = 3;
+	private Ball ball;
 	private Image imgPlayer;
 	private static List<Ball> balls;
 }

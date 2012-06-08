@@ -15,7 +15,7 @@ public class Ball {
 		visible = true;
 	}
 
-	//public void move(Board board, Player player, Block block) {
+	// public void move(Board board, Player player, Block block) {
 	public void move(Board board) {
 		x += dx;
 		y += dy;
@@ -25,29 +25,43 @@ public class Ball {
 		if (x < board.getBounds().getMinX()) {
 			x = (int) board.getBounds().getMinX();
 			dx = -dx;
-			// System.out.println("MinX: " + board.getBounds().getMinX());
-			// System.out.println("Player minX: " + player.getBounds().getX());
 		}
 		if (x + imgBall.getWidth(null) >= board.getBounds().getMaxX()) {
 			x = (int) (board.getBounds().getMaxX() - imgBall.getWidth(null));
 			dx = -dx;
-			// System.out.println("MaxX: " + board.getBounds().getMaxX());
 		}
 		if (y < board.getBounds().getMinY()) {
 			y = (int) board.getBounds().getMinY();
 			dy = -dy;
-			// System.out.println("MinY: " + board.getBounds().getMinY());
 		}
-		if (y + imgBall.getHeight(null) >= board.getBounds().getMaxY()) {
-			y = (int) (board.getBounds().getMaxY() - imgBall.getHeight(null));
-			dy = -dy;
-			// System.out.println("MaxY: " + board.getBounds().getMaxY());
-		}
+//		if (y + imgBall.getHeight(null) >= board.getBounds().getMaxY()) {
+//			y = (int) (board.getBounds().getMaxY() - imgBall.getHeight(null));
+//			dy = -dy;
+//		}
+		 if (y + imgBall.getHeight(null) - 9 >= board.getBounds().getMaxY()) {
+		 visible = false;
+		 }
+	}
+
+	public void setX(int x) {
+		this.x = x;
+	}
+
+	public void setY(int y) {
+		this.y = y;
 	}
 
 	public Rectangle getBounds() {
 		return new Rectangle(x, y, imgBall.getWidth(null),
 				imgBall.getHeight(null));
+	}
+
+	public int getWidth() {
+		return imgBall.getWidth(null);
+	}
+
+	public int getHeight() {
+		return imgBall.getHeight(null);
 	}
 
 	public int getX() {
@@ -84,6 +98,6 @@ public class Ball {
 
 	private int x, y;
 	private int dx = 2, dy = 2; // 1,2,5
-	private Image imgBall;
-	boolean visible;
+	private final Image imgBall;
+	private boolean visible;
 }
